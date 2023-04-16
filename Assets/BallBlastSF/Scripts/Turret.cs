@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -33,7 +30,7 @@ public class Turret : MonoBehaviour
             projectile.SetDamage(_damage);
         }
 
-        
+
     }
 
     public void Fire()
