@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,7 +11,7 @@ public class StoneSpawner : MonoBehaviour
     [Header("Balance")]
     [SerializeField] private Turret _turret;
     [SerializeField] private int _amount;
-    [SerializeField][Range(0.0f, 1.0f)] private float _minHitPointsPercentage;    
+    [SerializeField][Range(0.0f, 1.0f)] private float _minHitPointsPercentage;
     [SerializeField] private float _maxHitPointsRate;
 
     [Space(10)] public UnityEvent Completed;
@@ -49,7 +46,7 @@ public class StoneSpawner : MonoBehaviour
             enabled = false;
             Completed.Invoke();
         }
-            
+
     }
 
     private void Spawn()

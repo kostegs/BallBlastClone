@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,7 +25,7 @@ public class LevelState : MonoBehaviour
         _stoneSpawner.Completed.RemoveListener(OnSpawnCompleted);
     }
 
-    public void OnCartCollisionWithStone() 
+    public void OnCartCollisionWithStone()
     {
         Defeat.Invoke();
     }
@@ -43,11 +41,11 @@ public class LevelState : MonoBehaviour
 
         if (_timer > 0.5f)
         {
-            if (_checkPassed == true && FindObjectsOfType<Stone>().Length == 0)            
+            if (_checkPassed == true && FindObjectsOfType<Stone>().Length == 0)
                 Passed.Invoke();
-            
-            _timer= 0f;
-        }        
+
+            _timer = 0f;
+        }
     }
 
 

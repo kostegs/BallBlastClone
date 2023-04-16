@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StoneMovement : MonoBehaviour
@@ -38,7 +36,7 @@ public class StoneMovement : MonoBehaviour
             _velocity.y -= _gravity * Time.deltaTime;
             transform.Rotate(0, 0, -Mathf.Sign(_velocity.x) * _rotationSpeed * Time.deltaTime);
         }
-            
+
 
         _velocity.x = Mathf.Sign(_velocity.x) * _horizontalSpeed;
         transform.position += _velocity * Time.deltaTime;
@@ -53,7 +51,7 @@ public class StoneMovement : MonoBehaviour
             if (levelEdge.Type == EdgeType.Bottom)
                 _velocity.y = _reboundSpeed;
             else if ((levelEdge.Type == EdgeType.Left && _velocity.x < 0) || (levelEdge.Type == EdgeType.Right && _velocity.x > 0))
-                _velocity.x *= -1;                    
+                _velocity.x *= -1;
         }
     }
 
