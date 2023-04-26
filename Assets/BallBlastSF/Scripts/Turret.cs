@@ -26,11 +26,8 @@ public class Turret : MonoBehaviour
 
         for (int i = 0; i < _projectileAmount; i++)
         {
-            Projectile projectile = Instantiate(_projectilePrefab, new Vector3(startPosX + i * _projectileDistance, _shootPoint.position.y, _shootPoint.position.z), transform.rotation);
-            projectile.SetDamage(_damage);
+            Projectile projectile = Instantiate(_projectilePrefab, new Vector3(startPosX + i * _projectileDistance, _shootPoint.position.y, _shootPoint.position.z), transform.rotation);            
         }
-
-
     }
 
     public void Fire()

@@ -16,15 +16,5 @@ public class Projectile : MonoBehaviour
         transform.position += transform.up * _speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Destructable destructable;
-
-        if (collision.transform.root.TryGetComponent<Destructable>(out destructable))
-            destructable.ApplyDamage(_damage);
-
-        Destroy(gameObject);
-    }
-
-    public void SetDamage(int damage) => _damage = damage;
+    private void OnTriggerEnter2D(Collider2D collision) => Destroy(gameObject);    
 }

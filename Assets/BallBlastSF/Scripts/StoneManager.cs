@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 
 public class StoneManager : MonoBehaviour
 {
     [Header("Spawner")]
     [SerializeField] private StoneSpawner _spawner;
+    [SerializeField] private float _spawnUpForce;
 
     [Header("Tempa")]
-    [SerializeField] private Turret _turret; // ToDo - get values from Characteristics Storage
+    [SerializeField] private Turret _turret; // TODO - get values from Characteristics Storage
 
     [Header("Balance")]
     [SerializeField] private float _spawnRate; // same as above
@@ -14,14 +16,12 @@ public class StoneManager : MonoBehaviour
     [SerializeField] private float _maxHitPointsRate;
     [SerializeField] private int _stonesAmount;
 
-
     private int _stonesMaxHitPoints;
     private int _stonesMinHitPoints;
     private float _timer;
     private int _amountSpawned;
     private int _currentStonesAmount;
     private int[] _stoneSizes;
-
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class StoneManager : MonoBehaviour
 
         _timer = _spawnRate;
 
-        CreateStonesCharacteristics();        
+        CreateStonesCharacteristics();
     }
 
     private void CreateStonesCharacteristics()
@@ -41,7 +41,7 @@ public class StoneManager : MonoBehaviour
 
         for (int i = 0; i < _stonesAmount; i++)
         {
-            int stoneSize = Random.Range(1, 4);
+            int stoneSize = UnityEngine.Random.Range(1, 4);
             _stoneSizes[i] = stoneSize;
         }
     }
@@ -57,30 +57,63 @@ public class StoneManager : MonoBehaviour
                 SpawnStone();
                 _timer = 0;
             }
-        }        
+        }
+    }
+
+    private void SpawnChildStones(Stone.StoneSize parentSize, int parentMaxHitpoints, Vector3 parentPosition)
+    {
+        int sizeNewStones = ((int)parentSize) - 1;
+        int maxHP_NewStones = Mathf.Clamp(parentMaxHitpoints / 2, 1, parentMaxHitpoints);
+
+        for (int i = 0; i < 2; i++)
+        {
+            float direction = (i % 2 * 2) - 1;
+
+            Stone stone = _spawner.SpawnStone(sizeNewStones, maxHP_NewStones, parentPosition, _spawnUpForce, direction);
+            SubscribeToStoneEvents(stone);
+        }
     }
 
     private void SpawnStone()
     {
         int currentStoneSize = _stoneSizes[_amountSpawned];
 
-        int maxHitPoints = Random.Range(_stonesMinHitPoints, _stonesMaxHitPoints + 1);
-        
+        int maxHitPoints = UnityEngine.Random.Range(_stonesMinHitPoints, _stonesMaxHitPoints + 1);
+
         int decreasePercent = 60 - (currentStoneSize * 20);
-        
+
         maxHitPoints = maxHitPoints - (maxHitPoints * decreasePercent) / 100;
 
         Stone stone = _spawner.SpawnStone(currentStoneSize, maxHitPoints);
-        stone.OnStoneCollision += StoneCollisionHandler;
+        SubscribeToStoneEvents(stone);
 
         _amountSpawned++;
+    }
+
+    private void SubscribeToStoneEvents(Stone stone)
+    {
+        stone.OnStoneCollision += StoneCollisionHandler;
+        stone.OnStoneHitPointsEnd += StoneHitPointsEndHandler;
     }
 
     public void StoneCollisionHandler(object stone, StoneCollisionEventArgs eventArgs)
     {
         if (eventArgs._collisionTransform.GetComponent<Projectile>() != null)
         {
-            Debug.Log("Stone has collision with projectile");
+            int damage = _turret.Damage; // TODO - get values from Characteristics Storage
+
+            if (stone is Stone)
+                ((Stone)stone).ApplyDamage(damage);
         }
+    }
+
+    public void StoneHitPointsEndHandler(object _stone, EventArgs eventArgs)
+    {
+        Stone stone = _stone as Stone;
+
+        if (stone.Size != Stone.StoneSize.Small)
+            SpawnChildStones(stone.Size, stone.MaxHitPoints, stone.transform.position);
+
+        Destroy(stone.gameObject);
     }
 }
