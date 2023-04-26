@@ -1,7 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+public class StoneCollisionEventArgs : EventArgs
+{
+    public readonly Transform _collisionTransform;
+
+    public StoneCollisionEventArgs(Transform collisionTransform)
+    {
+        _collisionTransform = collisionTransform;
+    }
+}
 
 [RequireComponent(typeof(StoneMovement))]
 public class Stone : Destructable
@@ -18,6 +29,7 @@ public class Stone : Destructable
     [SerializeField] private float _spawnUpForce;
     
     private StoneMovement _stoneMovement;
+    public event EventHandler<StoneCollisionEventArgs> OnStoneCollision;
 
     public static int StoneCounter { get; private set; }
     public Size StoneSize => _size;
@@ -87,5 +99,10 @@ public class Stone : Destructable
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        StoneCollisionEventArgs eventArgs = new StoneCollisionEventArgs(collision.transform.root);
+        OnStoneCollision?.Invoke(this, eventArgs);
+    }
 
 }

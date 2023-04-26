@@ -27,12 +27,13 @@ public class StoneSpawner : MonoBehaviour
         _amountSpawned++;
     }*/
 
-    public void SpawnStone(int stoneSize, int stoneMaxHitPoints)
+    public Stone SpawnStone(int stoneSize, int stoneMaxHitPoints)
     {
         Stone stone = Instantiate(_stonePrefab, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, Quaternion.identity);
         stone.SetSize((Stone.Size)stoneSize);
         stone.MaxHitPoints = stoneMaxHitPoints;
                         
+        return stone;
     }
 
 

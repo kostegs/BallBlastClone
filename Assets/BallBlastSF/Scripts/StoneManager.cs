@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StoneManager : MonoBehaviour
@@ -71,8 +70,17 @@ public class StoneManager : MonoBehaviour
         
         maxHitPoints = maxHitPoints - (maxHitPoints * decreasePercent) / 100;
 
-        _spawner.SpawnStone(currentStoneSize, maxHitPoints);
+        Stone stone = _spawner.SpawnStone(currentStoneSize, maxHitPoints);
+        stone.OnStoneCollision += StoneCollisionHandler;
 
         _amountSpawned++;
+    }
+
+    public void StoneCollisionHandler(object stone, StoneCollisionEventArgs eventArgs)
+    {
+        if (eventArgs._collisionTransform.GetComponent<Projectile>() != null)
+        {
+            Debug.Log("Stone has collision with projectile");
+        }
     }
 }

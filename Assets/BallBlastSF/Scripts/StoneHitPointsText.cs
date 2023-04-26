@@ -26,7 +26,7 @@ public class StoneHitPointsText : MonoBehaviour
     private void OnChangeHitPoints()
     {
         int hitPoints = _destructable.GetHitPoints();
-        Debug.Log($"hitPoints {hitPoints}");
+        //Debug.Log($"hitPoints {hitPoints}");
         
         if (hitPoints >= 1000)         
             _hitPointText.text = hitPoints / 1000 + "K";
