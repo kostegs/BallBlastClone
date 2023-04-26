@@ -15,15 +15,10 @@ public class StoneHitPointsText : MonoBehaviour
     private void Awake()
     {
         _stone = GetComponent<Stone>();
-        _stone.HitPointsChanged.AddListener(OnChangeHitPoints);
+        _stone.OnHitPointsChanged += OnChangeHitPoints;        
     }
 
-    private void OnDestroy()
-    {
-        _stone.HitPointsChanged.RemoveListener(OnChangeHitPoints);
-    }
-
-    private void OnChangeHitPoints()
+    private void OnChangeHitPoints(object stone, EventArgs e)
     {
         int hitPoints = _stone.HitPoints;        
         
