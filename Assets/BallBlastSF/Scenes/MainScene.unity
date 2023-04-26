@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawner: {fileID: 1980199281}
+  _spawnUpForce: 3
   _turret: {fileID: 394334116217424674}
   _spawnRate: 5
   _minHitPointsPercentage: 0.806
