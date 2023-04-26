@@ -6,9 +6,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(StoneMovement))]
 public class Stone : Destructable
 {
-    private UIText _UIText;
-
-    public UnityEvent<int> OnStoneDestroyedEvent;
     public enum Size : int
     {
         Small,
@@ -37,17 +34,11 @@ public class Stone : Destructable
         // Reset counter of stones (we use it for changing order to Z-cooordinate for new stones)
         if (StoneCounter == 100)
             StoneCounter= 0;
-
-        _UIText = GameObject.Find("TextStones").GetComponent<UIText>();
-
-        OnStoneDestroyedEvent.AddListener(_UIText.OnStoneDestroyedHandler);
-
     }
        
     private void OnDestroy()
     {
-        Die.RemoveListener(OnStoneDestroyed);
-        OnStoneDestroyedEvent.RemoveListener(_UIText.OnStoneDestroyedHandler);
+        Die.RemoveListener(OnStoneDestroyed);     
     }
 
     private void OnStoneDestroyed()
@@ -55,30 +46,7 @@ public class Stone : Destructable
        if (_size != Size.Small)        
             SpawnStones();
 
-        Destroy(gameObject);
-
-        int scores;
-
-        switch (_size)
-        {
-            case Size.Huge:
-                scores = 1000;
-                break;
-            case Size.Big:
-                scores = 500;
-                break;
-            case Size.Normal:
-                scores = 300;
-                break;
-            case Size.Small:
-                scores = 100;
-                break;
-            default:
-                scores = 50;
-                break;
-        }
-
-        OnStoneDestroyedEvent.Invoke(scores); 
+        Destroy(gameObject);        
     }
 
     private void SpawnStones()
