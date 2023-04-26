@@ -9,50 +9,8 @@ public class StoneSpawner : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] private Stone _stonePrefab;
     [SerializeField] private Transform[] _spawnPoints;
-    [SerializeField] private float _spawnRate;
-
-    [Header("Balance")]
-    [SerializeField] private Turret _turret;
-    [SerializeField] private int _amount;
-    [SerializeField][Range(0.0f, 1.0f)] private float _minHitPointsPercentage;    
-    [SerializeField] private float _maxHitPointsRate;
-
-    [Space(10)] public UnityEvent Completed;
-
-    private float _timer;
-    private int _amountSpawned;
-    private int _stoneMaxHitPoints;
-    private int _stoneMinHitPoints;
-
-    private void Start()
-    {
-        int damagePerSecond = (int)((_turret.Damage * _turret.ProjectileAmount) * (1 / _turret.FireRate));
-
-        _stoneMaxHitPoints = (int)(damagePerSecond * _maxHitPointsRate);
-        _stoneMinHitPoints = (int)(_stoneMaxHitPoints * _minHitPointsPercentage);
-
-        _timer = _spawnRate;
-    }
-
-    private void Update()
-    {
-        _timer += Time.deltaTime;
-
-        if (_timer >= _spawnRate)
-        {
-            Spawn();
-            _timer = 0;
-        }
-
-        if (_amountSpawned == _amount)
-        {
-            enabled = false;
-            Completed.Invoke();
-        }
-            
-    }
-
-    private void Spawn()
+    
+    /*private void Spawn()
     {
         Stone stone = Instantiate(_stonePrefab, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, Quaternion.identity);
         stone.SetSize((Stone.Size)Random.Range(1, 4));
@@ -67,6 +25,14 @@ public class StoneSpawner : MonoBehaviour
         Debug.Log($"stone.MaxHitPoints {stone.MaxHitPoints}");
 
         _amountSpawned++;
+    }*/
+
+    public void SpawnStone(int stoneSize, int stoneMaxHitPoints)
+    {
+        Stone stone = Instantiate(_stonePrefab, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, Quaternion.identity);
+        stone.SetSize((Stone.Size)stoneSize);
+        stone.MaxHitPoints = stoneMaxHitPoints;
+                        
     }
 
 

@@ -18,13 +18,13 @@ public class LevelState : MonoBehaviour
     private void Awake()
     {
         _cart.OnStoneCollision.AddListener(OnCartCollisionWithStone);
-        _stoneSpawner.Completed.AddListener(OnSpawnCompleted);
+        //_stoneSpawner.Completed.AddListener(OnSpawnCompleted);
     }
 
     private void OnDestroy()
     {
         _cart.OnStoneCollision.RemoveListener(OnCartCollisionWithStone);
-        _stoneSpawner.Completed.RemoveListener(OnSpawnCompleted);
+        //_stoneSpawner.Completed.RemoveListener(OnSpawnCompleted);
     }
 
     public void OnCartCollisionWithStone() 
