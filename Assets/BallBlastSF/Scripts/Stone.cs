@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,7 +24,7 @@ public class Stone : Destructable
 
     [SerializeField] private Size _size;
     [SerializeField] private float _spawnUpForce;
-    
+
     private StoneMovement _stoneMovement;
     public event EventHandler<StoneCollisionEventArgs> OnStoneCollision;
 
@@ -42,12 +39,12 @@ public class Stone : Destructable
         Die.AddListener(OnStoneDestroyed);
         StoneCounter++;
         transform.position = new Vector3(transform.position.x, transform.position.y, -(float)0.001 * StoneCounter);
-        
+
         // Reset counter of stones (we use it for changing order to Z-cooordinate for new stones)
         if (StoneCounter == 100)
             StoneCounter= 0;
     }
-       
+
     private void OnDestroy()
     {
         Die.RemoveListener(OnStoneDestroyed);     
@@ -55,7 +52,7 @@ public class Stone : Destructable
 
     private void OnStoneDestroyed()
     {
-       if (_size != Size.Small)        
+        if (_size != Size.Small)
             SpawnStones();
 
         Destroy(gameObject);        
@@ -69,7 +66,7 @@ public class Stone : Destructable
             stone.SetSize(_size - 1);
             stone.MaxHitPoints = Mathf.Clamp(MaxHitPoints / 2, 1, MaxHitPoints);
             stone._stoneMovement.AddVerticalVelocity(_spawnUpForce);
-            stone._stoneMovement.SetHorizontalDirection((i % 2 * 2) - 1);            
+            stone._stoneMovement.SetHorizontalDirection((i % 2 * 2) - 1);
         }
     }
 
@@ -87,9 +84,9 @@ public class Stone : Destructable
         switch (size)
         {
             case Size.Huge:
-                return new Vector3(1, 1, 1);                
+                return new Vector3(1, 1, 1);
             case Size.Big:
-                return new Vector3(0.75f, 0.75f, 0.75f);                
+                return new Vector3(0.75f, 0.75f, 0.75f);
             case Size.Normal:
                 return new Vector3(0.6f, 0.6f, 0.6f);
             case Size.Small:

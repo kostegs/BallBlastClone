@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -26,7 +24,7 @@ public class Projectile : MonoBehaviour
             destructable.ApplyDamage(_damage);
 
         Destroy(gameObject);
-    }    
+    }
 
     public void SetDamage(int damage) => _damage = damage;
 }

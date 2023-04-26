@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelBoundary : MonoBehaviour
@@ -38,13 +35,13 @@ public class LevelBoundary : MonoBehaviour
             _screenResolution.y = Screen.height;
         }
 
-        SetEdgesPosition();        
+        SetEdgesPosition();
     }
 
     private void SetEdgesPosition()
     {
         SetEdgePosition(_leftEdge, LeftBorder);
-        SetEdgePosition(_rightEdge, RightBorder);    
+        SetEdgePosition(_rightEdge, RightBorder);
     }
 
     private void SetEdgePosition(GameObject edge, float Border)
@@ -53,7 +50,7 @@ public class LevelBoundary : MonoBehaviour
 
         if (edge.TryGetComponent<BoxCollider2D>(out boxCollider))
             edge.transform.position = new Vector2(Border - boxCollider.size.x / 2, edge.transform.position.y);
-    }    
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
