@@ -7,11 +7,11 @@ public class StoneManager : MonoBehaviour
     [SerializeField] private StoneSpawner _spawner;
     [SerializeField] private float _spawnUpForce;
 
-    [Header("Tempa")]
-    [SerializeField] private Turret _turret; // TODO - get values from Characteristics Storage
+    [Header("GamePlay Settings")]
+    [SerializeField] private GamePlaySettings _gamePlaySettings;
 
     [Header("Balance")]
-    [SerializeField] private float _spawnRate; // same as above
+    [SerializeField] private float _spawnRate; 
     [SerializeField][Range(0.0f, 1.0f)] private float _minHitPointsPercentage;
     [SerializeField] private float _maxHitPointsRate;
     [SerializeField] private int _stonesAmount;
@@ -25,7 +25,7 @@ public class StoneManager : MonoBehaviour
 
     private void Start()
     {
-        int damagePerSecond = (int)((_turret.Damage * _turret.ProjectileAmount) * (1 / _turret.FireRate));
+        int damagePerSecond = (int)((_gamePlaySettings.Damage * _gamePlaySettings.ProjectileAmount) * (1 / _gamePlaySettings.FireRate));
 
         _stonesMaxHitPoints = (int)(damagePerSecond * _maxHitPointsRate);
         _stonesMinHitPoints = (int)(_stonesMaxHitPoints * _minHitPointsPercentage);
@@ -100,7 +100,7 @@ public class StoneManager : MonoBehaviour
     {
         if (eventArgs._collisionTransform.GetComponent<Projectile>() != null)
         {
-            int damage = _turret.Damage; // TODO - get values from Characteristics Storage
+            int damage = _gamePlaySettings.Damage; 
 
             if (stone is Stone)
                 ((Stone)stone).ApplyDamage(damage);

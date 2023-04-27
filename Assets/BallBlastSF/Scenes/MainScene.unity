@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawner: {fileID: 1980199281}
   _spawnUpForce: 3
-  _turret: {fileID: 394334116217424674}
+  _gamePlaySettings: {fileID: 1850785835}
   _spawnRate: 5
   _minHitPointsPercentage: 0.806
   _maxHitPointsRate: 3
@@ -5953,6 +5953,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1850785834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1850785836}
+  - component: {fileID: 1850785835}
+  m_Layer: 0
+  m_Name: Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1850785835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850785834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9067fc756d358dc4d9428a4cd286dead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireRate: 0.09
+  _damage: 7
+  _projectileAmount: 1
+  _projectileDistance: 0.2
+--- !u!4 &1850785836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850785834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.19552308, y: 0.252352, z: 0.035007488}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1980199280
 GameObject:
   m_ObjectHideFlags: 0
@@ -6213,12 +6261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958beb0cec90e5548a5da5177c07bdc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gamePlaySettings: {fileID: 1850785835}
   _projectilePrefab: {fileID: 1358044750740398535, guid: 2196e833f922e3e458c57604569478d7, type: 3}
   _shootPoint: {fileID: 1981970782}
-  _fireRate: 0.1
-  _damage: 5
-  _projectileAmount: 1
-  _projectileDistance: 0.2
 --- !u!114 &394334116217424676 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 394334117684861098, guid: 5de53f8ea292645428729728243e109b, type: 3}
@@ -6241,3 +6286,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283de357a42cff143a89b588fe4d3d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &394334116217424679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394334116217424672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9067fc756d358dc4d9428a4cd286dead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireRate: 0
+  _damage: 0
+  _projectileAmount: 0
+  _projectileDistance: 0
