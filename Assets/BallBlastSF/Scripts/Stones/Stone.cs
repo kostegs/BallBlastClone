@@ -14,8 +14,7 @@ public class Stone : MonoBehaviour
     }
 
     [SerializeField] private StoneSize _size;    
-    // [HideInInspector] public UnityEvent HitPointsChanged; // TODO - refactoring
-
+    
     private StoneMovement _stoneMovement;
 
     public event EventHandler<StoneCollisionEventArgs> OnStoneCollision;
@@ -44,8 +43,7 @@ public class Stone : MonoBehaviour
     {
         _eventArgs = new EventArgs();
         _maxHitPoints = _hitPoints;
-        OnHitPointsChanged?.Invoke(this, _eventArgs);
-        //HitPointsChanged?.Invoke(); // TODO - refactoring
+        OnHitPointsChanged?.Invoke(this, _eventArgs);        
     }
         
     public void AddVerticalVelocity(float velocity) => _stoneMovement.AddVerticalVelocity(velocity); 
@@ -87,7 +85,6 @@ public class Stone : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         _hitPoints -= damage;
-        //HitPointsChanged?.Invoke();
         OnHitPointsChanged?.Invoke(this, _eventArgs);
 
         if (_hitPoints <= 0)
