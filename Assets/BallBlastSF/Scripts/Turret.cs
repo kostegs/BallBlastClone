@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(GamePlaySettings))]
 public class Turret : MonoBehaviour
 {
     [SerializeField] private GamePlaySettings _gamePlaySettings;
