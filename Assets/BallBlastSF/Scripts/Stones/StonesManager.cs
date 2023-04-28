@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class StoneManager : MonoBehaviour
+public class StonesManager : MonoBehaviour
 {
     [Header("Spawner")]
     [SerializeField] private StoneSpawner _spawner;
@@ -22,6 +22,9 @@ public class StoneManager : MonoBehaviour
     private int _amountSpawned;
     private int _currentStonesAmount;
     private int[] _stoneSizes;
+    private StoneDestroyedEventArgs _stoneDestroyedEventArgs;
+
+    public Action<StoneDestroyedEventArgs> OnStoneDestroyed;
 
     private void Start()
     {
@@ -29,6 +32,8 @@ public class StoneManager : MonoBehaviour
 
         _stonesMaxHitPoints = (int)(damagePerSecond * _maxHitPointsRate);
         _stonesMinHitPoints = (int)(_stonesMaxHitPoints * _minHitPointsPercentage);
+
+        _stoneDestroyedEventArgs = new StoneDestroyedEventArgs();
 
         _timer = _spawnRate;
 
@@ -114,6 +119,11 @@ public class StoneManager : MonoBehaviour
         if (stone.Size != Stone.StoneSize.Small)
             SpawnChildStones(stone.Size, stone.MaxHitPoints, stone.transform.position);
 
+        _stoneDestroyedEventArgs.StonePosition.x = stone.transform.position.x;
+        _stoneDestroyedEventArgs.StonePosition.y = stone.transform.position.y;
+
         Destroy(stone.gameObject);
+
+        OnStoneDestroyed?.Invoke(_stoneDestroyedEventArgs);
     }
 }

@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 493968309}
   - component: {fileID: 493968310}
   m_Layer: 0
-  m_Name: StoneManager
+  m_Name: StonesManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493968308}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3515e9b888085e4fa0752b2a8ba2141, type: 3}
   m_Name: 
@@ -1003,6 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coinSpawner: {fileID: 282147068}
+  _stonesManager: {fileID: 493968310}
 --- !u!1 &1441748701
 GameObject:
   m_ObjectHideFlags: 0
@@ -6124,7 +6125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fireRate: 0.09
-  _damage: 7
+  _damage: 20
   _projectileAmount: 1
   _projectileDistance: 0.2
 --- !u!4 &1850785836
