@@ -8,7 +8,7 @@ public class CoinsManager : MonoBehaviour
     [SerializeField] private CoinSpawner _coinSpawner;
     [SerializeField] private StonesManager _stonesManager;
 
-    public Action OnCoinPickedUp;
+    public event Action OnCoinPickedUp;
 
     private void Start()
     {
