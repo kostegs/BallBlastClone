@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class StoneManager : MonoBehaviour
+public class StonesManager : MonoBehaviour
 {
     [Header("Spawner")]
     [SerializeField] private StoneSpawner _spawner;
@@ -22,6 +22,11 @@ public class StoneManager : MonoBehaviour
     private int _amountSpawned;
     private int _currentStonesAmount;
     private int[] _stoneSizes;
+    private StoneDestroyedEventArgs _stoneDestroyedEventArgs;
+    private int _stonesSizesForProgressbar;
+
+    public event Action<StoneDestroyedEventArgs> OnStoneDestroyed;    
+    public int StonesSizesForProgressBar => _stonesSizesForProgressbar;
 
     private void Start()
     {
@@ -30,9 +35,12 @@ public class StoneManager : MonoBehaviour
         _stonesMaxHitPoints = (int)(damagePerSecond * _maxHitPointsRate);
         _stonesMinHitPoints = (int)(_stonesMaxHitPoints * _minHitPointsPercentage);
 
+        _stoneDestroyedEventArgs = new StoneDestroyedEventArgs();
+
         _timer = _spawnRate;
 
         CreateStonesCharacteristics();
+        CalculateStonesSizesForProgressBar();
     }
 
     private void CreateStonesCharacteristics()
@@ -41,9 +49,30 @@ public class StoneManager : MonoBehaviour
 
         for (int i = 0; i < _stonesAmount; i++)
         {
-            int stoneSize = UnityEngine.Random.Range(1, 4);
+            int stoneSize = UnityEngine.Random.Range(2, 5);
             _stoneSizes[i] = stoneSize;
         }
+    }
+
+    private void CalculateStonesSizesForProgressBar()
+    {
+        foreach (int stoneSize in _stoneSizes)
+        {
+            _stonesSizesForProgressbar += stoneSize + CalculateStoneSizeRecursive(stoneSize - 1);            
+        }
+    }
+
+    private int CalculateStoneSizeRecursive(int parentStoneSize)
+    {
+        if (parentStoneSize <= 0)
+            return 0;
+
+        int stoneSize = 0;
+
+        for (int i = 1; i <= 2; i++) // because of we divide parent stone for two child stones
+            stoneSize += parentStoneSize + CalculateStoneSizeRecursive(parentStoneSize - 1);
+
+        return stoneSize;
     }
 
     private void Update()
@@ -114,6 +143,12 @@ public class StoneManager : MonoBehaviour
         if (stone.Size != Stone.StoneSize.Small)
             SpawnChildStones(stone.Size, stone.MaxHitPoints, stone.transform.position);
 
+        _stoneDestroyedEventArgs.StonePosition.x = stone.transform.position.x;
+        _stoneDestroyedEventArgs.StonePosition.y = stone.transform.position.y;
+        _stoneDestroyedEventArgs.StoneSize = (int)stone.Size;
+
         Destroy(stone.gameObject);
+
+        OnStoneDestroyed?.Invoke(_stoneDestroyedEventArgs);
     }
 }

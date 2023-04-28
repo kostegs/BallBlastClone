@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,13 @@ using UnityEngine;
 public class CoinsManager : MonoBehaviour
 {
     [SerializeField] private CoinSpawner _coinSpawner;
+    [SerializeField] private StonesManager _stonesManager;
+
+    public event Action OnCoinPickedUp;
 
     private void Start()
     {
-        Coin coin = _coinSpawner.SpawnCoin(new Vector2(-6, 3));
-        coin.OnCoinCollision += OnCoinCollisionHandler;
-
+        _stonesManager.OnStoneDestroyed += OnStoneDestroyedHandler;
     }
 
     public void OnCoinCollisionHandler(object coin, CoinCollisionEventArgs eventArgs)
@@ -20,7 +22,16 @@ public class CoinsManager : MonoBehaviour
             Debug.Log("Turret vs Coin Collision!");
 
             Destroy(((Coin)coin).gameObject);
+            OnCoinPickedUp?.Invoke();
         }
+    }
+
+    public void OnStoneDestroyedHandler(StoneDestroyedEventArgs _eventArgs)
+    {
+        Vector2 coinPosition = _eventArgs.StonePosition;
+
+        Coin coin = _coinSpawner.SpawnCoin(coinPosition);
+        coin.OnCoinCollision += OnCoinCollisionHandler;
     }
 
 }
