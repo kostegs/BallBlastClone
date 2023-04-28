@@ -29,6 +29,7 @@ public class Stone : MonoBehaviour
     public StoneSize Size => _size;
     public int HitPoints { get => _hitPoints; set { _hitPoints = (value == 0 ? 0 : value); } }    
     public int MaxHitPoints => _maxHitPoints;
+    public bool DestroyingMode { get; private set; }
 
     private void Awake()
     {
@@ -57,6 +58,11 @@ public class Stone : MonoBehaviour
 
         transform.localScale = GetVectorFromSize(size);
         _size = size;
+    }
+
+    public void SetDestroyingMode()
+    {
+        DestroyingMode = true;
     }
 
     private Vector3 GetVectorFromSize(StoneSize size)
