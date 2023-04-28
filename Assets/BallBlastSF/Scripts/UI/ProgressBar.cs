@@ -1,17 +1,17 @@
-using TMPro;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private StonesManager _stonesManager;
+    [SerializeField] private Image _progressBarFilling;
+    [SerializeField] private StonesManager _stonesManager;    
 
     private int _sizeOfAllStones;
-    private int _amount;
-
+    
     private void Start()
     {
-        _stonesManager.OnStoneDestroyed += OnStoneDestroyedHandler;
+        _stonesManager.OnStoneDestroyed += OnStoneDestroyedHandler;        
     }
 
     public void OnStoneDestroyedHandler(StoneDestroyedEventArgs eventArgs)
@@ -19,8 +19,7 @@ public class ProgressBar : MonoBehaviour
         if (_sizeOfAllStones == 0)
             _sizeOfAllStones = _stonesManager.StonesSizesForProgressBar;
 
-        _amount += eventArgs.StoneSize;
-
-        _text.text = $"{_amount.ToString()} from {_sizeOfAllStones}";
+        float scoreInPercent = (float)eventArgs.StoneSize / _sizeOfAllStones;
+        _progressBarFilling.fillAmount += scoreInPercent;
     }
 }
