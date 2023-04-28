@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class StonesManager : MonoBehaviour
@@ -30,7 +31,7 @@ public class StonesManager : MonoBehaviour
 
     private void Start()
     {
-        int damagePerSecond = (int)((_gamePlaySettings.Damage * _gamePlaySettings.ProjectileAmount) * (1 / _gamePlaySettings.FireRate));
+        int damagePerSecond = (int)(((_gamePlaySettings.Damage * _gamePlaySettings.ProjectileAmount) * (1 / _gamePlaySettings.FireRate)) / 4);
 
         _stonesMaxHitPoints = (int)(damagePerSecond * _maxHitPointsRate);
         _stonesMinHitPoints = (int)(_stonesMaxHitPoints * _minHitPointsPercentage);
@@ -109,8 +110,8 @@ public class StonesManager : MonoBehaviour
 
         int maxHitPoints = UnityEngine.Random.Range(_stonesMinHitPoints, _stonesMaxHitPoints + 1);
 
-        int decreasePercent = 60 - (currentStoneSize * 20);
-
+        int decreasePercent = 80 - (currentStoneSize * 20);
+        
         maxHitPoints = maxHitPoints - (maxHitPoints * decreasePercent) / 100;
 
         Stone stone = _spawner.SpawnStone(currentStoneSize, maxHitPoints);
@@ -140,6 +141,9 @@ public class StonesManager : MonoBehaviour
     {
         Stone stone = _stone as Stone;
 
+        if (stone.DestroyingMode)
+            return;
+
         if (stone.Size != Stone.StoneSize.Small)
             SpawnChildStones(stone.Size, stone.MaxHitPoints, stone.transform.position);
 
@@ -147,6 +151,9 @@ public class StonesManager : MonoBehaviour
         _stoneDestroyedEventArgs.StonePosition.y = stone.transform.position.y;
         _stoneDestroyedEventArgs.StoneSize = (int)stone.Size;
 
+        // We use it because 2-3 projectiles create collisions with very small gap on time. 
+        // A stone is on the way of destroying, but it's still alive. It makes mistakes with calculates of points for the progressbar.
+        stone.SetDestroyingMode(); 
         Destroy(stone.gameObject);
 
         OnStoneDestroyed?.Invoke(_stoneDestroyedEventArgs);
