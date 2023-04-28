@@ -7,10 +7,10 @@ public class Stone : MonoBehaviour
 {
     public enum StoneSize : int
     {
-        Small,
-        Normal,
-        Big,
-        Huge
+        Small = 1,
+        Normal = 2,
+        Big = 3,
+        Huge = 4
     }
 
     [SerializeField] private StoneSize _size;    
@@ -52,7 +52,7 @@ public class Stone : MonoBehaviour
 
     public void SetSize(StoneSize size)
     {
-        if (size < 0)
+        if (size <= 0)
             return;
 
         transform.localScale = GetVectorFromSize(size);

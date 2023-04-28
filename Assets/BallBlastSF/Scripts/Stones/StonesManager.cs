@@ -23,8 +23,10 @@ public class StonesManager : MonoBehaviour
     private int _currentStonesAmount;
     private int[] _stoneSizes;
     private StoneDestroyedEventArgs _stoneDestroyedEventArgs;
+    private int _stonesSizesForProgressbar;
 
-    public Action<StoneDestroyedEventArgs> OnStoneDestroyed;
+    public event Action<StoneDestroyedEventArgs> OnStoneDestroyed;    
+    public int StonesSizesForProgressBar => _stonesSizesForProgressbar;
 
     private void Start()
     {
@@ -38,6 +40,7 @@ public class StonesManager : MonoBehaviour
         _timer = _spawnRate;
 
         CreateStonesCharacteristics();
+        CalculateStonesSizesForProgressBar();
     }
 
     private void CreateStonesCharacteristics()
@@ -46,9 +49,30 @@ public class StonesManager : MonoBehaviour
 
         for (int i = 0; i < _stonesAmount; i++)
         {
-            int stoneSize = UnityEngine.Random.Range(1, 4);
+            int stoneSize = UnityEngine.Random.Range(2, 5);
             _stoneSizes[i] = stoneSize;
         }
+    }
+
+    private void CalculateStonesSizesForProgressBar()
+    {
+        foreach (int stoneSize in _stoneSizes)
+        {
+            _stonesSizesForProgressbar += stoneSize + CalculateStoneSizeRecursive(stoneSize - 1);            
+        }
+    }
+
+    private int CalculateStoneSizeRecursive(int parentStoneSize)
+    {
+        if (parentStoneSize <= 0)
+            return 0;
+
+        int stoneSize = 0;
+
+        for (int i = 1; i <= 2; i++) // because of we divide parent stone for two child stones
+            stoneSize += parentStoneSize + CalculateStoneSizeRecursive(parentStoneSize - 1);
+
+        return stoneSize;
     }
 
     private void Update()
@@ -121,6 +145,7 @@ public class StonesManager : MonoBehaviour
 
         _stoneDestroyedEventArgs.StonePosition.x = stone.transform.position.x;
         _stoneDestroyedEventArgs.StonePosition.y = stone.transform.position.y;
+        _stoneDestroyedEventArgs.StoneSize = (int)stone.Size;
 
         Destroy(stone.gameObject);
 

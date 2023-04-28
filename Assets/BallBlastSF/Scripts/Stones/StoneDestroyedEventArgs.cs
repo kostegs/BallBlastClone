@@ -4,5 +4,6 @@ using UnityEngine;
 public class StoneDestroyedEventArgs : EventArgs
 {
     public Vector2 StonePosition;
+    public int StoneSize;
     	
 }
