@@ -1,5 +1,5 @@
 using System;
-using UnityEditor.Experimental.GraphView;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StonesManager : MonoBehaviour
@@ -17,16 +17,21 @@ public class StonesManager : MonoBehaviour
     [SerializeField] private float _maxHitPointsRate;
     [SerializeField] private int _stonesAmount;
 
+    [Header("Other")]
+    [SerializeField] private GameMgr _gameMgr;
+
     private int _stonesMaxHitPoints;
     private int _stonesMinHitPoints;
     private float _timer;
-    private int _amountSpawned;
-    private int _currentStonesAmount;
+    private int _amountSpawned;    
     private int[] _stoneSizes;
     private StoneDestroyedEventArgs _stoneDestroyedEventArgs;
     private int _stonesSizesForProgressbar;
+    private List<Stone> _stonesOnScene;
 
-    public event Action<StoneDestroyedEventArgs> OnStoneDestroyed;    
+    public event Action<StoneDestroyedEventArgs> OnStoneDestroyed;
+    public event Action OnAllStonesBroken;
+
     public int StonesSizesForProgressBar => _stonesSizesForProgressbar;
 
     private void Start()
@@ -39,6 +44,7 @@ public class StonesManager : MonoBehaviour
         _stoneDestroyedEventArgs = new StoneDestroyedEventArgs();
 
         _timer = _spawnRate;
+        _stonesOnScene = new List<Stone>();
 
         CreateStonesCharacteristics();
         CalculateStonesSizesForProgressBar();
@@ -101,6 +107,7 @@ public class StonesManager : MonoBehaviour
 
             Stone stone = _spawner.SpawnStone(sizeNewStones, maxHP_NewStones, parentPosition, _spawnUpForce, direction);
             SubscribeToStoneEvents(stone);
+            _stonesOnScene.Add(stone);
         }
     }
 
@@ -118,6 +125,7 @@ public class StonesManager : MonoBehaviour
         SubscribeToStoneEvents(stone);
 
         _amountSpawned++;
+        _stonesOnScene.Add(stone);
     }
 
     private void SubscribeToStoneEvents(Stone stone)
@@ -155,7 +163,11 @@ public class StonesManager : MonoBehaviour
         // A stone is on the way of destroying, but it's still alive. It makes mistakes with calculates of points for the progressbar.
         stone.SetDestroyingMode(); 
         Destroy(stone.gameObject);
+        _stonesOnScene.Remove(stone);
 
         OnStoneDestroyed?.Invoke(_stoneDestroyedEventArgs);
+
+        if (_amountSpawned == _stonesAmount && _stonesOnScene.Count == 0)         
+            OnAllStonesBroken?.Invoke();
     }
 }
