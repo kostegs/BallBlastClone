@@ -13,9 +13,20 @@ public class GamePlaySettings : MonoBehaviour
     public int Damage => _damage;
     public int ProjectileAmount => _projectileAmount;
     public float ProjectileDistance => _projectileDistance;
-
+    
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if (DataStorage.SettingsDataInitialized)
+        {
+            _fireRate = DataStorage.FireRate;
+            _damage = DataStorage.Damage;
+            _projectileAmount = DataStorage.ProjectileAmount;
+            _projectileDistance = DataStorage.ProjectileDistance;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        DataStorage.FillDataFromSettings(this);
     }
 }
