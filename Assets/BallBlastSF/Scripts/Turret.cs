@@ -6,7 +6,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private Projectile _projectilePrefab;
     [SerializeField] private Transform _shootPoint;
     
-    private float _timer;    
+    private float _timer;
 
     private void Update()
     {
