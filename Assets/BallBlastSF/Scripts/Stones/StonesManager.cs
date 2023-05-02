@@ -38,7 +38,7 @@ public class StonesManager : MonoBehaviour
     {
         int damagePerSecond = (int)(((_gamePlaySettings.Damage * _gamePlaySettings.ProjectileAmount) * (1 / _gamePlaySettings.FireRate)) / 4);
 
-        _stonesMaxHitPoints = (int)(damagePerSecond * _maxHitPointsRate);
+        _stonesMaxHitPoints = damagePerSecond * _gameMgr.LevelNumber;
         _stonesMinHitPoints = (int)(_stonesMaxHitPoints * _minHitPointsPercentage);
 
         _stoneDestroyedEventArgs = new StoneDestroyedEventArgs();
