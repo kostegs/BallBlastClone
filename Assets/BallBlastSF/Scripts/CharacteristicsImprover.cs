@@ -1,37 +1,131 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacteristicsImprover : MonoBehaviour
 {
-    [SerializeField] private int[] _raiseSpeedPrices;
+    [Header("Managers")]
     [SerializeField] private CoinsManager _coinsManager;
     [SerializeField] private GamePlaySettings _gamePlaySettings;
 
-    [Header("UI")]
+    [Header("UI - common elements")]
     [SerializeField] private Sprite _coinSprite;
     [SerializeField] private Sprite _bwCoinSprite;
 
+    [Header("Main form")]
     [SerializeField] private UIImprovingForm _uiImprovingForm;
-    [SerializeField] private Button _raiseSpeedbtn;
 
-    private int _raiseSpeedPointer;
+    [Header("Speed improver - Price, step")]
+    [SerializeField] private int[] _raiseSpeedPrices;
+    [SerializeField] private float _raiseSpeedStep;
+    [Header("Speed improver - UI")]
+    [SerializeField] private Button _raiseSpeedbtn;
+    [SerializeField] private TextMeshProUGUI _raiseSpeedText;
+
+    [Header("Damage improver - Price, step")]
+    [SerializeField] private int _raiseDamagePriceStep;
+    [SerializeField] private int _raiseDamageStep;    
+    [Header("Damage improver - UI")]
+    [SerializeField] private Button _raiseDamagebtn;
+    [SerializeField] private TextMeshProUGUI _raiseDamageText;
+
+    public int RaiseDamagePrice { get; private set; }
+    public int RaiseAmountPrice { get; private set; }
+    public int RaiseSpeedPointer { get; private set; }
+
+    public event Action OnFinishImproving;
+
+    private int _coinsAmount;
+    private Image _raiseSpeedButtonImage;
+    private Button _raiseSpeedButton;
+    private Image _raiseDamageButtonImage;
+    private Button _raiseDamageButton;
 
     private void Start()
     {
-        ChangeUI();    
+        // Speed
+        _raiseSpeedButton = _raiseSpeedbtn.GetComponent<Button>();
+        _raiseSpeedButtonImage = _raiseSpeedbtn.GetComponent<Image>();
+
+        // Damage
+        _raiseDamageButton = _raiseDamagebtn.GetComponent<Button>();
+        _raiseDamageButtonImage = _raiseDamagebtn.GetComponent<Image>();        
+    }
+
+    public void ShowImproverForm()
+    {
+        RaiseDamagePrice = DataStorage.RaiseDamagePrice;
+        RaiseDamagePrice = RaiseDamagePrice == 0 ? _raiseDamagePriceStep : RaiseDamagePrice;
+
+        RaiseAmountPrice = DataStorage.AmountPrice;
+        RaiseSpeedPointer = DataStorage.RaiseSpeedPointer;
+
+        ChangeUI();
+
+        _uiImprovingForm.OnCloseImprovingForm += OnCloseImproverFormHandler;
+        _uiImprovingForm.ShowForm();
     }
 
     private void ChangeUI()
     {
-        _raiseSpeedbtn.GetComponent<Image>().sprite = _bwCoinSprite;
+        _coinsAmount = _coinsManager.CountOfCoins;
+
+        ChangeUI_Speed();
+        ChangeUI_Damage();
+    }
+
+    private void ChangeUI_Speed()
+    {
+        int currentPrice = _raiseSpeedPrices[RaiseSpeedPointer];
+        _raiseSpeedText.text = currentPrice.ToString();
+
+        if (_coinsAmount < currentPrice)
+        {
+            _raiseSpeedButtonImage.sprite = _bwCoinSprite;
+            _raiseSpeedButton.enabled = false;        
+        }
+    }
+
+    private void ChangeUI_Damage()
+    {
+        _raiseDamageText.text = RaiseDamagePrice.ToString();
+
+        if (_coinsAmount < RaiseDamagePrice)
+        {
+            _raiseDamageButtonImage.sprite = _bwCoinSprite;
+            _raiseDamageButton.enabled = false;
+        }
+    }
+
+    public void OnCloseImproverFormHandler()
+    {
+        OnFinishImproving?.Invoke();
     }
 
     public void RaiseSpeed()
     {
-        _gamePlaySettings.FireRate -= 0.01f;
+        _gamePlaySettings.FireRate -= _raiseSpeedStep;
+        _coinsManager.SubtractCoins(_raiseSpeedPrices[RaiseSpeedPointer]);
+        RaiseSpeedPointer++;
+        ChangeUI();
+    }
+
+    public void RaiseDamage()
+    {
+        _gamePlaySettings.Damage += _raiseDamageStep;
+        _coinsManager.SubtractCoins(RaiseDamagePrice);
+        RaiseDamagePrice += _raiseDamagePriceStep;
+        ChangeUI();
+    }
+
+    private void OnDestroy()
+    {
+        DataStorage.FillDataFromCharacteristicsImprover(this);
     }
 
 }

@@ -10,10 +10,8 @@ public class UIImprovingForm : MonoBehaviour
 
     public void ShowForm()
     {
-        foreach (GameObject uiObject in _uiObjectsForHiding) 
-        {
-            uiObject.SetActive(false);
-        }
+        foreach (GameObject uiObject in _uiObjectsForHiding)         
+            uiObject.SetActive(false);        
 
         _improveCharacteristicsForm.SetActive(true);
         Time.timeScale = 0f;

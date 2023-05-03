@@ -1546,8 +1546,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stonesManager: {fileID: 493968310}
-  _coinsManager: {fileID: 0}
-  _improvingCharacteristicsForm: {fileID: 1299478711}
+  _coinsManager: {fileID: 1096364413}
+  _characteristicsImprover: {fileID: 1327445342}
 --- !u!4 &828185103
 Transform:
   m_ObjectHideFlags: 0
@@ -1677,7 +1677,7 @@ RectTransform:
   - {fileID: 610806751}
   - {fileID: 165402155}
   m_Father: {fileID: 1053381304}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1805,10 +1805,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 891115451}
   - {fileID: 1951315808}
   - {fileID: 1841239827}
   - {fileID: 1299478710}
+  - {fileID: 891115451}
   m_Father: {fileID: 453913160}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2366,7 +2366,7 @@ RectTransform:
   - {fileID: 429899544}
   - {fileID: 1404420780}
   m_Father: {fileID: 1053381304}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2388,7 +2388,6 @@ MonoBehaviour:
   _uiObjectsForHiding:
   - {fileID: 1951315807}
   - {fileID: 1841239826}
-  - {fileID: 891115450}
   _improveCharacteristicsForm: {fileID: 1299478709}
 --- !u!1 &1327445340
 GameObject:
@@ -2434,13 +2433,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e3bd15ee5dc924186361d029c3de07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _raiseSpeedPrices: 0a0000000f00000019000000280000003c000000550000007300000096000000be000000eb0000001d0100005401000090010000d10100001702000062020000b20200000703000061030000
   _coinsManager: {fileID: 1096364413}
   _gamePlaySettings: {fileID: 1850785835}
   _coinSprite: {fileID: 21300000, guid: 3231e74394033344c8a30eed09487036, type: 3}
   _bwCoinSprite: {fileID: 21300000, guid: 32ba3dace546dce458141e9f9c2a2bce, type: 3}
   _uiImprovingForm: {fileID: 1299478711}
+  _raiseSpeedPrices: 0a0000000f00000019000000280000003c000000550000007300000096000000be000000eb0000001d0100005401000090010000d10100001702000062020000b20200000703000061030000
+  _raiseSpeedStep: 0.01
   _raiseSpeedbtn: {fileID: 1356028297}
+  _raiseSpeedText: {fileID: 651220617}
+  _raiseDamagePriceStep: 10
+  _raiseDamageStep: 1
+  _raiseDamagebtn: {fileID: 2083600347}
+  _raiseDamageText: {fileID: 266811187}
 --- !u!1 &1356028295
 GameObject:
   m_ObjectHideFlags: 0
@@ -8347,7 +8352,7 @@ RectTransform:
   - {fileID: 1066991243}
   - {fileID: 1734441706}
   m_Father: {fileID: 1053381304}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8643,7 +8648,7 @@ RectTransform:
   m_Children:
   - {fileID: 1570587058}
   m_Father: {fileID: 1053381304}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8858,7 +8863,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2083600348}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1327445342}
+        m_TargetAssemblyTypeName: CharacteristicsImprover, Assembly-CSharp
+        m_MethodName: RaiseDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2083600348
 MonoBehaviour:
   m_ObjectHideFlags: 0
