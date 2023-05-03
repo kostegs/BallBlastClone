@@ -2442,6 +2442,10 @@ MonoBehaviour:
   _raiseSpeedStep: 0.01
   _raiseSpeedbtn: {fileID: 1356028297}
   _raiseSpeedText: {fileID: 651220617}
+  _raiseDamagePriceStep: 10
+  _raiseDamageStep: 1
+  _raiseDamagebtn: {fileID: 2083600347}
+  _raiseDamageText: {fileID: 266811187}
 --- !u!1 &1356028295
 GameObject:
   m_ObjectHideFlags: 0
@@ -8859,7 +8863,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2083600348}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1327445342}
+        m_TargetAssemblyTypeName: CharacteristicsImprover, Assembly-CSharp
+        m_MethodName: RaiseDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2083600348
 MonoBehaviour:
   m_ObjectHideFlags: 0
