@@ -1625,6 +1625,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stonesManager: {fileID: 493968310}
+  _coinsManager: {fileID: 0}
+  _improvingCharacteristicsForm: {fileID: 1299478711}
 --- !u!4 &828185103
 Transform:
   m_ObjectHideFlags: 0
@@ -2445,13 +2447,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1299478710}
+  - component: {fileID: 1299478711}
   m_Layer: 5
   m_Name: GamePlayImprover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1299478710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2479,6 +2482,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1299478711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299478709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f983e9420daa4064b875da4b12f2f8f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiObjectsForHiding:
+  - {fileID: 1951315807}
+  - {fileID: 1841239826}
+  - {fileID: 891115450}
+  _improveCharacteristicsForm: {fileID: 1299478709}
 --- !u!1 &1360923452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,9 +2712,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.49360734, b: 0.06132078, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2714,10 +2734,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1299478709}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1299478711}
+        m_TargetAssemblyTypeName: UIImprovingForm, Assembly-CSharp
+        m_MethodName: CloseForm
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
