@@ -5,7 +5,7 @@ public class UIImprovingForm : MonoBehaviour
 {
     [SerializeField] private GameObject[] _uiObjectsForHiding;
     [SerializeField] private GameObject _improveCharacteristicsForm;
-
+    
     public event Action OnCloseImprovingForm;
 
     public void ShowForm()

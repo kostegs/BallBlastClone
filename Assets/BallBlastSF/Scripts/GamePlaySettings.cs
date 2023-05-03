@@ -9,7 +9,7 @@ public class GamePlaySettings : MonoBehaviour
     [SerializeField] private int _projectileAmount;
     [SerializeField] private float _projectileDistance;
 
-    public float FireRate => _fireRate;
+    public float FireRate { get { return _fireRate; } set { _fireRate = value < 0 ? 0 : value; } }
     public int Damage => _damage;
     public int ProjectileAmount => _projectileAmount;
     public float ProjectileDistance => _projectileDistance;
