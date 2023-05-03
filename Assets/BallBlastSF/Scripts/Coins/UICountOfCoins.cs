@@ -14,8 +14,6 @@ public class UICountOfCoins : MonoBehaviour
 
     private void OnCoinPickedUpHandler()
     {
-        _countOfCoins++;
-
-        _countOfCoinsText.text = _countOfCoins.ToString();
+        _countOfCoinsText.text = _coinsManager.CountOfCoins.ToString();
     }
 }

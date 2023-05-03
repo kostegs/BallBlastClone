@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameMgr : MonoBehaviour
 {
     [SerializeField] private StonesManager _stonesManager;
+    [SerializeField] private CoinsManager _coinsManager;
 
     public int LevelNumber { get; private set; }
 
@@ -11,12 +12,12 @@ public class GameMgr : MonoBehaviour
     {
         LevelNumber = DataStorage.LevelNumber;
         _stonesManager.OnAllStonesBroken += OnAllStonesBrokenHandler;
-
+        
     }  
 
     public void AddLevelNumber() => LevelNumber++;
 
-    public void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);       
+    public void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     private void OnDestroy() => DataStorage.FillDataFromGameMgr(this);
 
