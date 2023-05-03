@@ -5,15 +5,14 @@ public class GameMgr : MonoBehaviour
 {
     [SerializeField] private StonesManager _stonesManager;
     [SerializeField] private CoinsManager _coinsManager;
-    [SerializeField] private UIImprovingForm _improvingCharacteristicsForm;
+    [SerializeField] private CharacteristicsImprover _characteristicsImprover;
 
     public int LevelNumber { get; private set; }
 
     private void Awake()
     {
         LevelNumber = DataStorage.LevelNumber;
-        _stonesManager.OnAllStonesBroken += OnAllStonesBrokenHandler;
-        _improvingCharacteristicsForm.OnCloseImprovingForm += OnClosingImproveCharacteristicsForm;
+        _stonesManager.OnAllStonesBroken += OnAllStonesBrokenHandler;       
     }  
 
     public void AddLevelNumber() => LevelNumber++;
@@ -25,10 +24,11 @@ public class GameMgr : MonoBehaviour
     public void OnAllStonesBrokenHandler()
     {
         AddLevelNumber();
-        _improvingCharacteristicsForm.ShowForm();        
+        _characteristicsImprover.OnFinishImproving += OnFinishImprovingHandler;
+        _characteristicsImprover.ShowImproverForm();
     }
 
-    public void OnClosingImproveCharacteristicsForm()
+    public void OnFinishImprovingHandler()
     {
         Restart();
     }

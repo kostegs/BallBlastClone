@@ -10,6 +10,9 @@ public static class DataStorage
     public static int LevelNumber { get; private set; } = 1;
     public static bool SettingsDataInitialized { get; private set; }
     public static int CountOfCoins { get; private set; }
+    public static int RaiseDamagePrice { get; private set; }
+    public static int AmountPrice { get; private set; }
+    public static int RaiseSpeedPointer { get; private set; }
 
     public static void FillDataFromSettings(GamePlaySettings settings)
     {
@@ -28,5 +31,13 @@ public static class DataStorage
     public static void FillDataFromCoinsManager(CoinsManager coinsManager)
     {
         CountOfCoins = coinsManager.CountOfCoins;
+    }
+
+    public static void FillDataFromCharacteristicsImprover(CharacteristicsImprover improver)
+    {
+        RaiseDamagePrice = improver.RaiseDamagePrice;
+        AmountPrice = improver.RaiseAmountPrice;
+        RaiseSpeedPointer = improver.RaiseSpeedPointer;
+
     }
 }

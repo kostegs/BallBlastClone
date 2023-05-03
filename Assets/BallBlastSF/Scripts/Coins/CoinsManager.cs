@@ -9,18 +9,15 @@ public class CoinsManager : MonoBehaviour
     [SerializeField] private CoinSpawner _coinSpawner;
     [SerializeField] private StonesManager _stonesManager;
 
-    private int _countOfCoins;
+    public event Action OnCoinAmountChanged;
 
-    public event Action OnCoinPickedUp;
-
-    public int CountOfCoins { get { return _countOfCoins; } 
-                              set { if (value < 0) _countOfCoins = 0; else _countOfCoins = value; } }
+    public int CountOfCoins { get; private set; }
 
     private void Start()
     {
         _stonesManager.OnStoneDestroyed += OnStoneDestroyedHandler;
         CountOfCoins = DataStorage.CountOfCoins;
-        OnCoinPickedUp?.Invoke();
+        OnCoinAmountChanged?.Invoke();
     }
 
     public void OnCoinCollisionHandler(object coin, CoinCollisionEventArgs eventArgs)
@@ -29,7 +26,7 @@ public class CoinsManager : MonoBehaviour
         {
             CountOfCoins++;
             Destroy(((Coin)coin).gameObject);
-            OnCoinPickedUp?.Invoke();
+            OnCoinAmountChanged?.Invoke();
         }
     }
 
@@ -45,5 +42,12 @@ public class CoinsManager : MonoBehaviour
     {
         DataStorage.FillDataFromCoinsManager(this);
     }
+
+    public void SubtractCoins(int countOfCoins)
+    {
+        CountOfCoins -= countOfCoins;
+        CountOfCoins = CountOfCoins < 0 ? 0 : CountOfCoins;
+        OnCoinAmountChanged?.Invoke();
+    } 
 
 }
