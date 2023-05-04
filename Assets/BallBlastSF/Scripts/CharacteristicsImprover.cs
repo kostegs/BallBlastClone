@@ -34,8 +34,15 @@ public class CharacteristicsImprover : MonoBehaviour
     [SerializeField] private Button _raiseDamagebtn;
     [SerializeField] private TextMeshProUGUI _raiseDamageText;
 
+    [Header("Amount improver - Price, step")]
+    [SerializeField] private int[] _raiseAmountPrices;
+    [SerializeField] private int _raiseAmountStep;    
+    [Header("Amount improver - UI")]
+    [SerializeField] private Button _raiseAmountbtn;
+    [SerializeField] private TextMeshProUGUI _raiseAmountText;
+
     public int RaiseDamagePrice { get; private set; }
-    public int RaiseAmountPrice { get; private set; }
+    public int RaiseAmountPointer { get; private set; }
     public int RaiseSpeedPointer { get; private set; }
 
     public event Action OnFinishImproving;
@@ -45,6 +52,8 @@ public class CharacteristicsImprover : MonoBehaviour
     private Button _raiseSpeedButton;
     private Image _raiseDamageButtonImage;
     private Button _raiseDamageButton;
+    private Image _raiseAmountButtonImage;
+    private Button _raiseAmountButton;
 
     private void Start()
     {
@@ -54,7 +63,11 @@ public class CharacteristicsImprover : MonoBehaviour
 
         // Damage
         _raiseDamageButton = _raiseDamagebtn.GetComponent<Button>();
-        _raiseDamageButtonImage = _raiseDamagebtn.GetComponent<Image>();        
+        _raiseDamageButtonImage = _raiseDamagebtn.GetComponent<Image>();
+
+        // Amount
+        _raiseAmountButton = _raiseAmountbtn.GetComponent<Button>();
+        _raiseAmountButtonImage = _raiseAmountbtn.GetComponent<Image>();
     }
 
     public void ShowImproverForm()
@@ -62,7 +75,7 @@ public class CharacteristicsImprover : MonoBehaviour
         RaiseDamagePrice = DataStorage.RaiseDamagePrice;
         RaiseDamagePrice = RaiseDamagePrice == 0 ? _raiseDamagePriceStep : RaiseDamagePrice;
 
-        RaiseAmountPrice = DataStorage.AmountPrice;
+        RaiseAmountPointer = DataStorage.RaiseAmountPointer;
         RaiseSpeedPointer = DataStorage.RaiseSpeedPointer;
 
         ChangeUI();
@@ -77,6 +90,7 @@ public class CharacteristicsImprover : MonoBehaviour
 
         ChangeUI_Speed();
         ChangeUI_Damage();
+        ChangeUI_Amount();
     }
 
     private void ChangeUI_Speed()
@@ -85,21 +99,42 @@ public class CharacteristicsImprover : MonoBehaviour
         _raiseSpeedText.text = currentPrice.ToString();
 
         if (_coinsAmount < currentPrice)
-        {
-            _raiseSpeedButtonImage.sprite = _bwCoinSprite;
-            _raiseSpeedButton.enabled = false;        
-        }
+            BlockImproverButton(_raiseSpeedButton, _raiseSpeedButtonImage);
     }
 
     private void ChangeUI_Damage()
     {
         _raiseDamageText.text = RaiseDamagePrice.ToString();
 
-        if (_coinsAmount < RaiseDamagePrice)
+        if (_coinsAmount < RaiseDamagePrice)        
+            BlockImproverButton(_raiseDamageButton, _raiseDamageButtonImage);                    
+    }
+
+    private void ChangeUI_Amount()
+    {
+        if (RaiseAmountPointer >= _raiseAmountPrices.Length)
         {
-            _raiseDamageButtonImage.sprite = _bwCoinSprite;
-            _raiseDamageButton.enabled = false;
+            BlockImproverButton(_raiseAmountButton, _raiseAmountButtonImage, _raiseAmountText, "MAX");
+            return;
         }
+
+        int currentPrice = _raiseAmountPrices[RaiseAmountPointer];
+        _raiseAmountText.text = currentPrice.ToString();
+
+        if (_coinsAmount < currentPrice)        
+            BlockImproverButton(_raiseAmountButton, _raiseAmountButtonImage);                    
+    }
+
+    private void BlockImproverButton(Button button, Image buttonImage)
+    {
+        button.enabled = false;
+        buttonImage.sprite = _bwCoinSprite;
+    }
+
+    private void BlockImproverButton(Button button, Image buttonImage, TextMeshProUGUI buttonTextComponent, string buttonText)
+    {
+        BlockImproverButton(button, buttonImage);
+        buttonTextComponent.text = buttonText;
     }
 
     public void OnCloseImproverFormHandler()
@@ -120,6 +155,14 @@ public class CharacteristicsImprover : MonoBehaviour
         _gamePlaySettings.Damage += _raiseDamageStep;
         _coinsManager.SubtractCoins(RaiseDamagePrice);
         RaiseDamagePrice += _raiseDamagePriceStep;
+        ChangeUI();
+    }
+
+    public void RaiseAmount()
+    {
+        _gamePlaySettings.ProjectileAmount += _raiseAmountStep;
+        _coinsManager.SubtractCoins(_raiseAmountPrices[RaiseAmountPointer]);
+        RaiseAmountPointer++;
         ChangeUI();
     }
 

@@ -11,7 +11,7 @@ public static class DataStorage
     public static bool SettingsDataInitialized { get; private set; }
     public static int CountOfCoins { get; private set; }
     public static int RaiseDamagePrice { get; private set; }
-    public static int AmountPrice { get; private set; }
+    public static int RaiseAmountPointer { get; private set; }
     public static int RaiseSpeedPointer { get; private set; }
 
     public static void FillDataFromSettings(GamePlaySettings settings)
@@ -36,7 +36,7 @@ public static class DataStorage
     public static void FillDataFromCharacteristicsImprover(CharacteristicsImprover improver)
     {
         RaiseDamagePrice = improver.RaiseDamagePrice;
-        AmountPrice = improver.RaiseAmountPrice;
+        RaiseAmountPointer = improver.RaiseAmountPointer;
         RaiseSpeedPointer = improver.RaiseSpeedPointer;
 
     }
