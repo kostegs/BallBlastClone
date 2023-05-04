@@ -40,6 +40,10 @@ public class StoneMovement : MonoBehaviour
 
         _velocity.x = Mathf.Sign(_velocity.x) * _horizontalSpeed;
         transform.position += _velocity * Time.deltaTime;
+
+        if ((transform.position.x < LevelBoundary.Instance.LeftBorder && _velocity.x < 0)
+            || (transform.position.x > LevelBoundary.Instance.RightBorder && _velocity.x > 0))
+            _velocity.x *= -1;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

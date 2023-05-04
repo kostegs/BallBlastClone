@@ -60,6 +60,11 @@ public class Stone : MonoBehaviour
         _size = size;
     }
 
+    public void SetColor(Color color)
+    {
+        GetComponentInChildren<SpriteRenderer>().color = color;
+    }
+
     public void SetDestroyingMode()
     {
         DestroyingMode = true;

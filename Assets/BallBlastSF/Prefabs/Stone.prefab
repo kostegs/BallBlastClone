@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6daeddeab49d1b24e8b5b9fa144c7d8e, type: 3}
-  m_Color: {r: 0.7075472, g: 0.13683695, b: 0.17291617, a: 1}
+  m_Color: {r: 0.7058824, g: 0.13683695, b: 0.17291617, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -206,22 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a6a776106c6644194bd4e15f42a882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHitPoints: 4
-  Die:
-    m_PersistentCalls:
-      m_Calls: []
-  HitPointsChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  HasDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  _UIText: {fileID: 0}
-  OnStoneDestroyedEvent:
-    m_PersistentCalls:
-      m_Calls: []
   _size: 3
-  _spawnUpForce: 3
 --- !u!114 &6703830111651681468
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2155,7 +2155,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1122238450}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1327445342}
+        m_TargetAssemblyTypeName: CharacteristicsImprover, Assembly-CSharp
+        m_MethodName: RaiseAmount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1122238450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,6 +2458,10 @@ MonoBehaviour:
   _raiseDamageStep: 1
   _raiseDamagebtn: {fileID: 2083600347}
   _raiseDamageText: {fileID: 266811187}
+  _raiseAmountPrices: 64000000c8000000
+  _raiseAmountStep: 1
+  _raiseAmountbtn: {fileID: 1122238449}
+  _raiseAmountText: {fileID: 1441558462}
 --- !u!1 &1356028295
 GameObject:
   m_ObjectHideFlags: 0
@@ -8690,6 +8706,13 @@ MonoBehaviour:
   - {fileID: 1474406341}
   - {fileID: 1593491016}
   - {fileID: 636564665}
+  _stoneColors:
+  - {r: 0.7058824, g: 0.13725491, b: 0.17254902, a: 0}
+  - {r: 0.05490196, g: 0.84313726, b: 0.92156863, a: 0}
+  - {r: 1, g: 0.7529412, b: 0, a: 0}
+  - {r: 0.047058824, g: 0.85882354, b: 0.08627451, a: 0}
+  - {r: 0.90588236, g: 0.0627451, b: 0.7372549, a: 0}
+  - {r: 0.08235294, g: 0.039215688, b: 0.9372549, a: 0}
 --- !u!4 &1980199282
 Transform:
   m_ObjectHideFlags: 0
