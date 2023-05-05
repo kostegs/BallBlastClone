@@ -13,6 +13,7 @@ public class StoneMovement : MonoBehaviour
 
     private bool _useGravity;
     private Vector3 _velocity;
+    private bool _freezeState;
 
     private void Awake()
     {
@@ -33,6 +34,9 @@ public class StoneMovement : MonoBehaviour
 
     private void Move()
     {
+        if (_useGravity && _freezeState)
+            return;
+
         if (_useGravity)
         {
             _velocity.y -= _gravity * Time.deltaTime;
@@ -69,6 +73,11 @@ public class StoneMovement : MonoBehaviour
     public void SetHorizontalDirection(float direction)
     {
         _velocity.x = Mathf.Sign(direction) * _horizontalSpeed;
+    }
+
+    public void SetFreezeState(bool freezeState)
+    {
+        _freezeState = freezeState;
     }
 
 }

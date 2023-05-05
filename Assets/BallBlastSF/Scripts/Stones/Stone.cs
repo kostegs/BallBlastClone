@@ -70,6 +70,11 @@ public class Stone : MonoBehaviour
         DestroyingMode = true;
     }
 
+    public void SetFreezeState(bool freezeState)
+    {
+        _stoneMovement.SetFreezeState(freezeState);
+    }
+
     private Vector3 GetVectorFromSize(StoneSize size)
     {
         switch (size)

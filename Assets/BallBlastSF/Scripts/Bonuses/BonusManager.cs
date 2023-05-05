@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BonusManager : MonoBehaviour
@@ -9,10 +10,33 @@ public class BonusManager : MonoBehaviour
     [SerializeField] private BonusSpawner _bonusSpawner;
     [Header("Probability")]
     [SerializeField] private int _bonusProbabilityPercent;
+    [Header("Stones Freezer")]
+    [SerializeField] private int _timeForFreeze;
+    [Header("UI")]
+    [SerializeField] private GameObject _uiFreezingPanel;
+    [SerializeField] private TextMeshProUGUI _freezeTimerText;
+
+    private float _freezingTimer;
+    private bool _freezeState;
 
     private void Start()
     {
         _stonesManager.OnStoneDestroyed += OnStoneDestroyedHandler;
+    }
+
+    private void Update()
+    {
+        if (_freezeState)
+        {
+            _freezingTimer -= Time.deltaTime;
+            _freezeTimerText.text = Mathf.Round(_freezingTimer).ToString();
+
+            if (_freezingTimer <= 0)
+            {
+                _freezeState = false;
+                ApplyUnfreezeStones();
+            }
+        }
     }
 
     public void OnStoneDestroyedHandler(StoneDestroyedEventArgs eventArgs)
@@ -28,7 +52,7 @@ public class BonusManager : MonoBehaviour
     {
         int lowerThreshold = 100 - _bonusProbabilityPercent;
 
-        int randomNumber = Random.Range(0, 101);
+        int randomNumber = Random.Range(1, 101);
         //Debug.Log(randomNumber);
 
         return randomNumber > lowerThreshold;
@@ -51,6 +75,21 @@ public class BonusManager : MonoBehaviour
 
     public void ApplyStoneFreeze()
     {
-        Debug.Log("Stone freeze");
+        _freezeState = true;
+        _freezingTimer = (float)_timeForFreeze;
+        _stonesManager.FreezeStones();
+        ChangeUI();
+    }
+
+    private void ApplyUnfreezeStones()
+    {
+        _freezeState = false;
+        _stonesManager.UnFreezeStones();
+        ChangeUI();
+    }
+
+    private void ChangeUI()
+    {
+        _uiFreezingPanel.SetActive(_freezeState);
     }
 }
