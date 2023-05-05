@@ -28,6 +28,8 @@ public class StonesManager : MonoBehaviour
     private StoneDestroyedEventArgs _stoneDestroyedEventArgs;
     private int _stonesSizesForProgressbar;
     private List<Stone> _stonesOnScene;
+    private float _freezingTimer;
+    private bool _freezeState;
 
     public event Action<StoneDestroyedEventArgs> OnStoneDestroyed;
     public event Action OnAllStonesBroken;
@@ -107,6 +109,7 @@ public class StonesManager : MonoBehaviour
 
             Stone stone = _spawner.SpawnStone(sizeNewStones, maxHP_NewStones, parentPosition, _spawnUpForce, direction);
             SubscribeToStoneEvents(stone);
+            stone.SetFreezeState(_freezeState);
             _stonesOnScene.Add(stone);
         }
     }
@@ -125,6 +128,7 @@ public class StonesManager : MonoBehaviour
         SubscribeToStoneEvents(stone);
 
         _amountSpawned++;
+        stone.SetFreezeState(_freezeState);
         _stonesOnScene.Add(stone);
     }
 
@@ -169,5 +173,23 @@ public class StonesManager : MonoBehaviour
 
         if (_amountSpawned == _stonesAmount && _stonesOnScene.Count == 0)         
             OnAllStonesBroken?.Invoke();
+    }
+
+    public void FreezeStones()
+    {
+        _freezeState = true;
+        SetFreezeStateForStones();
+    }
+
+    public void UnFreezeStones()
+    {
+        _freezeState = false;
+        SetFreezeStateForStones();
+    }
+
+    private void SetFreezeStateForStones()
+    {
+        foreach (Stone stone in _stonesOnScene)
+            stone.SetFreezeState(_freezeState);
     }
 }

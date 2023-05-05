@@ -30,9 +30,9 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    public void OnStoneDestroyedHandler(StoneDestroyedEventArgs _eventArgs)
+    public void OnStoneDestroyedHandler(StoneDestroyedEventArgs eventArgs)
     {
-        Vector2 coinPosition = _eventArgs.StonePosition;
+        Vector2 coinPosition = eventArgs.StonePosition;
 
         Coin coin = _coinSpawner.SpawnCoin(coinPosition);
         coin.OnCoinCollision += OnCoinCollisionHandler;
