@@ -27,7 +27,7 @@ public class GameMgr : MonoBehaviour
         _characteristicsImprover.OnFinishImproving += OnFinishImprovingHandler;
         _characteristicsImprover.ShowImproverForm();
     }
-
+    
     public void OnFinishImprovingHandler()
     {
         Restart();

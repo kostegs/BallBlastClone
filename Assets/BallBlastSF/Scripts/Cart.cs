@@ -13,7 +13,10 @@ public class Cart : MonoBehaviour
 
     [HideInInspector] public UnityEvent OnStoneCollision;
 
+    public bool UnbreakableState { get; private set; }
+
     private Vector3 _movementTarget;
+
 
     private void Start()
     {
@@ -27,6 +30,9 @@ public class Cart : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (UnbreakableState)
+            return;
+
         Stone stone = collision.transform.root.GetComponent<Stone>();
 
         if (stone != null)
@@ -72,6 +78,8 @@ public class Cart : MonoBehaviour
 
         return moveTarget;
     }
+
+    public void SetUnbreakableState(bool state) => UnbreakableState = state;
    
 
 #if UNITY_EDITOR
