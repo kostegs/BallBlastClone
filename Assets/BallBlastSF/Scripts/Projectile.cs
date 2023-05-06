@@ -16,5 +16,11 @@ public class Projectile : MonoBehaviour
         transform.position += transform.up * _speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => Destroy(gameObject);    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.root.GetComponent<Coin>() != null)
+            return;
+        
+        Destroy(gameObject);
+    }  
 }

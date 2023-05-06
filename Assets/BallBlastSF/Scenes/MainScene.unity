@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 192260330}
   - component: {fileID: 192260329}
   m_Layer: 5
-  m_Name: FreezeTimerText
+  m_Name: CurrentBonusTimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1114,7 +1114,7 @@ GameObject:
   - component: {fileID: 482243108}
   - component: {fileID: 482243107}
   m_Layer: 5
-  m_Name: StonesFreezerText
+  m_Name: CurrentBonusText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1137,8 +1137,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 28.826}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -752, y: 398}
-  m_SizeDelta: {x: 420.6331, y: 75}
+  m_AnchoredPosition: {x: -749.1422, y: 392.8072}
+  m_SizeDelta: {x: 420.6331, y: 86.8545}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &482243107
 MonoBehaviour:
@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Freezed!
+  m_text: immortal!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c08e460e14290b4ca0af49bc6b267d1, type: 2}
   m_sharedMaterial: {fileID: -3300138040872404564, guid: 9c08e460e14290b4ca0af49bc6b267d1, type: 2}
@@ -8259,7 +8259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1468475279}
   m_Layer: 5
-  m_Name: StonesFreezer
+  m_Name: CurrentBonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9035,10 +9035,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stonesManager: {fileID: 493968310}
   _bonusSpawner: {fileID: 1373254317}
+  _cart: {fileID: 394334116217424677}
   _bonusProbabilityPercent: 5
   _timeForFreeze: 10
-  _uiFreezingPanel: {fileID: 1468475278}
-  _freezeTimerText: {fileID: 192260329}
+  _timeForUnbreakable: 10
+  _uiBonusPanel: {fileID: 1468475278}
+  _bonusText: {fileID: 482243107}
+  _bonusTimerText: {fileID: 192260329}
 --- !u!1 &1951315807
 GameObject:
   m_ObjectHideFlags: 0
