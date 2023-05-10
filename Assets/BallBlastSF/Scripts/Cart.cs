@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +12,7 @@ public class Cart : MonoBehaviour
     [SerializeField] private Transform[] _wheels;
     [SerializeField] private float _wheelRadius;
 
-    [HideInInspector] public UnityEvent OnStoneCollision;
+    public event Action OnStoneCollision;
 
     public bool UnbreakableState { get; private set; }
 
@@ -37,7 +38,7 @@ public class Cart : MonoBehaviour
 
         if (stone != null)
         {
-            OnStoneCollision.Invoke();
+            OnStoneCollision?.Invoke();
         }
     }
 

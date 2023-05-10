@@ -8,15 +8,18 @@ public class GameMgr : MonoBehaviour
     [SerializeField] private CharacteristicsImprover _characteristicsImprover;
     [SerializeField] private UIPause _uiPause;
     [SerializeField] private SceneManagement _sceneManagement;
+    [SerializeField] private Cart _cart;
 
     public int LevelNumber { get; private set; }
+    public bool DefeatState { get; private set; }
 
     private bool _pauseState;
 
     private void Awake()
     {
         LevelNumber = DataStorage.LevelNumber;
-        _stonesManager.OnAllStonesBroken += OnAllStonesBrokenHandler;       
+        _stonesManager.OnAllStonesBroken += OnAllStonesBrokenHandler;
+        _cart.OnStoneCollision += OnDefeat;
     }  
 
     public void AddLevelNumber() => LevelNumber++;
@@ -28,6 +31,17 @@ public class GameMgr : MonoBehaviour
     public void OnAllStonesBrokenHandler()
     {
         AddLevelNumber();
+        ShowImproverForm();
+    }
+
+    public void OnDefeat()
+    {
+        DefeatState = true;
+        ShowImproverForm();
+    }
+
+    public void ShowImproverForm()
+    {
         _characteristicsImprover.OnFinishImproving += OnFinishImprovingHandler;
         _characteristicsImprover.ShowImproverForm();
         FreezeGamePlay();
