@@ -13,14 +13,9 @@ public class UIImprovingForm : MonoBehaviour
         foreach (GameObject uiObject in _uiObjectsForHiding)         
             uiObject.SetActive(false);        
 
-        _improveCharacteristicsForm.SetActive(true);
-        Time.timeScale = 0f;
+        _improveCharacteristicsForm.SetActive(true);        
     }
 
-    public void CloseForm()
-    {
-        OnCloseImprovingForm?.Invoke();
-        Time.timeScale = 1f;
-    }
+    public void CloseForm() => OnCloseImprovingForm?.Invoke();
     
 }

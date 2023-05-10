@@ -6,8 +6,11 @@ public class GameMgr : MonoBehaviour
     [SerializeField] private StonesManager _stonesManager;
     [SerializeField] private CoinsManager _coinsManager;
     [SerializeField] private CharacteristicsImprover _characteristicsImprover;
+    [SerializeField] private UIPause _uiPause;
 
     public int LevelNumber { get; private set; }
+
+    private bool _pauseState;
 
     private void Awake()
     {
@@ -26,10 +29,36 @@ public class GameMgr : MonoBehaviour
         AddLevelNumber();
         _characteristicsImprover.OnFinishImproving += OnFinishImprovingHandler;
         _characteristicsImprover.ShowImproverForm();
+        FreezeGamePlay();
     }
     
+    public void FreezeGamePlay()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void UnFreezeGamePlay()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void OnFinishImprovingHandler()
     {
+        UnFreezeGamePlay();
         Restart();
     }
+
+    public void SetPause()
+    {
+        _pauseState = !_pauseState;
+
+        _uiPause.SetPauseState(_pauseState);
+
+        if (_pauseState)
+            FreezeGamePlay();
+        else
+            UnFreezeGamePlay();
+    }
+
+    public void QuitGame() => Application.Quit();
 }
