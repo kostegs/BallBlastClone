@@ -59,7 +59,6 @@ public class GameMgr : MonoBehaviour
             FreezeGamePlay();
         else
             UnFreezeGamePlay();
-    }
-
-    public void QuitGame() => _sceneManagement.QuitGame();
+    }    
+    
 }

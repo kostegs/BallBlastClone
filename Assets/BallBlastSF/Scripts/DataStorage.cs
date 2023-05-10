@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEditor;
 
 public static class DataStorage 
@@ -38,6 +39,23 @@ public static class DataStorage
         RaiseDamagePrice = improver.RaiseDamagePrice;
         RaiseAmountPointer = improver.RaiseAmountPointer;
         RaiseSpeedPointer = improver.RaiseSpeedPointer;
+    }
 
+    public static void LoadDataFromSave(SaveLoadSystemData data)
+    {
+        if (data == null)
+            return;       
+
+        FireRate = data.FireRate;
+        Damage = data.Damage;
+        ProjectileAmount = data.ProjectileAmount;
+        ProjectileDistance = data.ProjectileDistance;
+        LevelNumber = data.LevelNumber;        
+        CountOfCoins = data.CountOfCoins;
+        RaiseDamagePrice = data.RaiseDamagePrice;
+        RaiseAmountPointer = data.RaiseAmountPointer;
+        RaiseSpeedPointer = data.RaiseSpeedPointer;
+
+        SettingsDataInitialized = true;
     }
 }

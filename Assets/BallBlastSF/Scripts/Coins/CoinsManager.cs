@@ -27,6 +27,7 @@ public class CoinsManager : MonoBehaviour
             CountOfCoins++;
             Destroy(((Coin)coin).gameObject);
             OnCoinAmountChanged?.Invoke();
+            DataStorage.FillDataFromCoinsManager(this);
         }
     }
 
