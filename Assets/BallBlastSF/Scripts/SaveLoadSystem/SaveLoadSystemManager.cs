@@ -7,7 +7,6 @@ public class SaveLoadSystemManager : MonoBehaviour
     public void LoadGame() 
     { 
         SaveLoadSystemData data = SaveLoadSystem.LoadData();
-        DataStorage.LoadDataFromSave(data);
-        
+        DataStorage.LoadDataFromSave(data);        
     } 
 }

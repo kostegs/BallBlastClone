@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoBehaviour
 {
@@ -47,15 +46,9 @@ public class GameMgr : MonoBehaviour
         FreezeGamePlay();
     }
     
-    public void FreezeGamePlay()
-    {
-        Time.timeScale = 0f;
-    }
+    public void FreezeGamePlay() => Time.timeScale = 0f;
 
-    public void UnFreezeGamePlay()
-    {
-        Time.timeScale = 1f;
-    }
+    public void UnFreezeGamePlay() => Time.timeScale = 1f;
 
     public void OnFinishImprovingHandler()
     {
@@ -73,6 +66,5 @@ public class GameMgr : MonoBehaviour
             FreezeGamePlay();
         else
             UnFreezeGamePlay();
-    }    
-    
+    }        
 }

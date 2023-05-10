@@ -23,8 +23,5 @@ public class GamePlaySettings : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        DataStorage.FillDataFromSettings(this);
-    }
+    private void OnDestroy() => DataStorage.FillDataFromSettings(this);
 }

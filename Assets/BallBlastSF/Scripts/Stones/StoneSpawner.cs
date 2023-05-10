@@ -38,6 +38,4 @@ public class StoneSpawner : MonoBehaviour
 
         return stone;
     }
-
-
 }

@@ -18,6 +18,7 @@ public class SaveLoadSystemData
         FireRate = DataStorage.FireRate;
         Damage = DataStorage.Damage;
         ProjectileAmount = DataStorage.ProjectileAmount;
+        ProjectileDistance = DataStorage.ProjectileDistance;
         LevelNumber = DataStorage.LevelNumber;
         CountOfCoins = DataStorage.CountOfCoins;
         RaiseDamagePrice = DataStorage.RaiseDamagePrice;

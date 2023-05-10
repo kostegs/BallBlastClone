@@ -8,8 +8,5 @@ public class UICountOfCoins : MonoBehaviour
     
     private void Start() => _coinsManager.OnCoinAmountChanged += OnCoinAmountChangedHandler;
 
-    private void OnCoinAmountChangedHandler()
-    {
-        _countOfCoinsText.text = _coinsManager.CountOfCoins.ToString();
-    }
+    private void OnCoinAmountChangedHandler() => _countOfCoinsText.text = _coinsManager.CountOfCoins.ToString();
 }

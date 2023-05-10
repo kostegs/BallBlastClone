@@ -1,7 +1,3 @@
-
-using System.Collections.Generic;
-using UnityEditor;
-
 public static class DataStorage 
 {
     public static float FireRate { get; private set; }

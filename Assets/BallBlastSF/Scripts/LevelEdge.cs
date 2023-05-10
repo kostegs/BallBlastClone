@@ -12,5 +12,4 @@ public class LevelEdge : MonoBehaviour
     [SerializeField] private EdgeType _edgeType;
 
     public EdgeType Type => _edgeType;
-
 }

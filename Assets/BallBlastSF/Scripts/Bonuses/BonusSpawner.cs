@@ -13,5 +13,4 @@ public class BonusSpawner : MonoBehaviour
 
         return bonusObject;
     }
-
 }

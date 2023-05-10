@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +7,8 @@ public class ProgressBar : MonoBehaviour
     [SerializeField] private StonesManager _stonesManager;    
 
     private int _sizeOfAllStones;
-    
-    private void Start()
-    {
-        _stonesManager.OnStoneDestroyed += OnStoneDestroyedHandler;        
-    }
+
+    private void Start() => _stonesManager.OnStoneDestroyed += OnStoneDestroyedHandler;
 
     public void OnStoneDestroyedHandler(StoneDestroyedEventArgs eventArgs)
     {

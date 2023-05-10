@@ -13,10 +13,7 @@ public class StoneMovement : MonoBehaviour
     private Vector3 _velocity;
     private bool _freezeState;
 
-    private void Awake()
-    {
-        _velocity.x = -Mathf.Sign(transform.position.x) * _horizontalSpeed;
-    }
+    private void Awake() => _velocity.x = -Mathf.Sign(transform.position.x) * _horizontalSpeed;
 
     private void Update()
     {
@@ -39,8 +36,7 @@ public class StoneMovement : MonoBehaviour
         {
             _velocity.y -= _gravity * Time.deltaTime;
             transform.Rotate(0, 0, -Mathf.Sign(_velocity.x) * _rotationSpeed * Time.deltaTime);
-        }
-
+        }            
 
         _velocity.x = Mathf.Sign(_velocity.x) * _horizontalSpeed;
         transform.position += _velocity * Time.deltaTime;
@@ -63,19 +59,9 @@ public class StoneMovement : MonoBehaviour
         }
     }
 
-    public void AddVerticalVelocity(float velocity)
-    {
-        _velocity.y += velocity;
-    }
+    public void AddVerticalVelocity(float velocity) => _velocity.y += velocity;
 
-    public void SetHorizontalDirection(float direction)
-    {
-        _velocity.x = Mathf.Sign(direction) * _horizontalSpeed;
-    }
+    public void SetHorizontalDirection(float direction) => _velocity.x = Mathf.Sign(direction) * _horizontalSpeed;
 
-    public void SetFreezeState(bool freezeState)
-    {
-        _freezeState = freezeState;
-    }
-
+    public void SetFreezeState(bool freezeState) => _freezeState = freezeState;
 }

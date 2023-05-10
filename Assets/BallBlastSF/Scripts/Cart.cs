@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Cart : MonoBehaviour
 {
@@ -18,16 +17,9 @@ public class Cart : MonoBehaviour
 
     private Vector3 _movementTarget;
 
+    private void Start() => _movementTarget = transform.position;
 
-    private void Start()
-    {
-        _movementTarget = transform.position;
-    }
-
-    private void Update()
-    {
-        Move();
-    }
+    private void Update() => Move();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -36,10 +28,8 @@ public class Cart : MonoBehaviour
 
         Stone stone = collision.transform.root.GetComponent<Stone>();
 
-        if (stone != null)
-        {
-            OnStoneCollision?.Invoke();
-        }
+        if (stone != null)        
+            OnStoneCollision?.Invoke();        
     }
 
     private void Move()
@@ -59,10 +49,7 @@ public class Cart : MonoBehaviour
             _wheels[i].Rotate(0, 0, -angle);        
     }
 
-    public void SetMovementTarget(Vector3 movementTarget)
-    {
-        _movementTarget = movementTarget;
-    }
+    public void SetMovementTarget(Vector3 movementTarget) => _movementTarget = movementTarget;
 
     private Vector3 ClampMovementTarget(Vector3 movementTarget)
     {
