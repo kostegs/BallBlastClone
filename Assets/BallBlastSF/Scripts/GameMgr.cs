@@ -7,6 +7,7 @@ public class GameMgr : MonoBehaviour
     [SerializeField] private CoinsManager _coinsManager;
     [SerializeField] private CharacteristicsImprover _characteristicsImprover;
     [SerializeField] private UIPause _uiPause;
+    [SerializeField] private SceneManagement _sceneManagement;
 
     public int LevelNumber { get; private set; }
 
@@ -20,7 +21,7 @@ public class GameMgr : MonoBehaviour
 
     public void AddLevelNumber() => LevelNumber++;
 
-    public void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void Restart() => _sceneManagement.RestartLevel();
 
     private void OnDestroy() => DataStorage.FillDataFromGameMgr(this);
 
@@ -60,5 +61,5 @@ public class GameMgr : MonoBehaviour
             UnFreezeGamePlay();
     }
 
-    public void QuitGame() => Application.Quit();
+    public void QuitGame() => _sceneManagement.QuitGame();
 }
