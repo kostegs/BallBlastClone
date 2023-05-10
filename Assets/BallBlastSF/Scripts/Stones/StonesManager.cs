@@ -78,7 +78,7 @@ public class StonesManager : MonoBehaviour
 
         int stoneSize = 0;
 
-        for (int i = 1; i <= 2; i++) // because of we divide parent stone for two child stones
+        for (int i = 1; i <= 2; i++) // because of the fact that we are dividing parent stone to two child stones
             stoneSize += parentStoneSize + CalculateStoneSizeRecursive(parentStoneSize - 1);
 
         return stoneSize;

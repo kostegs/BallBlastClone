@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class CoinsManager : MonoBehaviour
@@ -45,10 +42,7 @@ public class CoinsManager : MonoBehaviour
         coin.SetValue(randomValue);  
     }
 
-    private void OnDestroy()
-    {
-        DataStorage.FillDataFromCoinsManager(this);
-    }
+    private void OnDestroy() => DataStorage.FillDataFromCoinsManager(this);
 
     public void SubtractCoins(int countOfCoins)
     {
@@ -56,5 +50,4 @@ public class CoinsManager : MonoBehaviour
         CountOfCoins = CountOfCoins < 0 ? 0 : CountOfCoins;
         OnCoinAmountChanged?.Invoke();
     } 
-
 }

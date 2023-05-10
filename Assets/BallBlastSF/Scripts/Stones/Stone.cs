@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(StoneMovement))]
 public class Stone : MonoBehaviour
@@ -65,15 +64,9 @@ public class Stone : MonoBehaviour
         GetComponentInChildren<SpriteRenderer>().color = color;
     }
 
-    public void SetDestroyingMode()
-    {
-        DestroyingMode = true;
-    }
+    public void SetDestroyingMode() => DestroyingMode = true;
 
-    public void SetFreezeState(bool freezeState)
-    {
-        _stoneMovement.SetFreezeState(freezeState);
-    }
+    public void SetFreezeState(bool freezeState) => _stoneMovement.SetFreezeState(freezeState);
 
     private Vector3 GetVectorFromSize(StoneSize size)
     {
@@ -105,6 +98,5 @@ public class Stone : MonoBehaviour
 
         if (_hitPoints <= 0)
             OnStoneHitPointsEnd?.Invoke(this, _eventArgs);            
-    }
-    
+    }    
 }

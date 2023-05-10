@@ -1,8 +1,4 @@
-
 public class StonesFreezer : BonusObject
 {
-    public override void ApplyBonus(BonusManager bonusManager)
-    {
-        bonusManager.ApplyStoneFreeze();
-    }
+    public override void ApplyBonus(BonusManager bonusManager) => bonusManager.ApplyStoneFreeze();
 }

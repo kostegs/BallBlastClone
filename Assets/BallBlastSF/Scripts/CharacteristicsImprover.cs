@@ -89,8 +89,7 @@ public class CharacteristicsImprover : MonoBehaviour
 
         ChangeUI_Speed();
         ChangeUI_Damage();
-        ChangeUI_Amount();
-        
+        ChangeUI_Amount();        
     }
 
     private void ChangeUI_Speed()
@@ -137,10 +136,7 @@ public class CharacteristicsImprover : MonoBehaviour
         buttonTextComponent.text = buttonText;
     }
 
-    public void OnCloseImproverFormHandler()
-    {
-        OnFinishImproving?.Invoke();
-    }
+    public void OnCloseImproverFormHandler() => OnFinishImproving?.Invoke();
 
     public void RaiseSpeed()
     {
@@ -166,9 +162,5 @@ public class CharacteristicsImprover : MonoBehaviour
         ChangeUI();
     }
 
-    private void OnDestroy()
-    {
-        DataStorage.FillDataFromCharacteristicsImprover(this);
-    }
-
+    private void OnDestroy() => DataStorage.FillDataFromCharacteristicsImprover(this);
 }

@@ -16,6 +16,5 @@ public class UIImprovingForm : MonoBehaviour
         _improveCharacteristicsForm.SetActive(true);        
     }
 
-    public void CloseForm() => OnCloseImprovingForm?.Invoke();
-    
+    public void CloseForm() => OnCloseImprovingForm?.Invoke();    
 }

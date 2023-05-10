@@ -8,10 +8,7 @@ public class Turret : MonoBehaviour
     
     private float _timer;
 
-    private void Update()
-    {
-        _timer += Time.deltaTime;
-    }
+    private void Update() => _timer += Time.deltaTime;
 
     private void SpawnProjectile()
     {
