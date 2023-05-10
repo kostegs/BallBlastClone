@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class LevelState : MonoBehaviour
 {
-    [SerializeField] private Cart _cart;
+    /* [SerializeField] private Cart _cart;
     [SerializeField] private StoneSpawner _stoneSpawner;
 
     [Space(5)]
@@ -28,11 +28,6 @@ public class LevelState : MonoBehaviour
         Defeat.Invoke();
     }
 
-    public void OnSpawnCompleted()
-    {
-        _checkPassed = true;
-    }
-
     private void Update()
     {
         _timer += Time.deltaTime;
@@ -41,10 +36,10 @@ public class LevelState : MonoBehaviour
         {
             if (_checkPassed == true && FindObjectsOfType<Stone>().Length == 0)
                 Passed.Invoke();
-
-            _timer = 0f;
-        }
-    }
+            
+            _timer= 0f;
+        }        
+    } */
 
 
 }

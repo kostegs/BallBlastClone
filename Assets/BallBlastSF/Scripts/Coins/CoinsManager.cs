@@ -20,12 +20,13 @@ public class CoinsManager : MonoBehaviour
         OnCoinAmountChanged?.Invoke();
     }
 
-    public void OnCoinCollisionHandler(object coin, CoinCollisionEventArgs eventArgs)
+    public void OnCoinCollisionHandler(object coinObject, CoinCollisionEventArgs eventArgs)
     {
         if (eventArgs._collisionTransform.GetComponent<Cart>() != null)
         {
-            CountOfCoins++;
-            Destroy(((Coin)coin).gameObject);
+            Coin coin = (Coin)coinObject;
+            CountOfCoins += coin.Value;
+            Destroy(coin.gameObject);
             OnCoinAmountChanged?.Invoke();
             DataStorage.FillDataFromCoinsManager(this);
         }
@@ -37,6 +38,11 @@ public class CoinsManager : MonoBehaviour
 
         Coin coin = _coinSpawner.SpawnCoin(coinPosition);
         coin.OnCoinCollision += OnCoinCollisionHandler;
+
+        int maxValue = (int)(DataStorage.LevelNumber / 4) + 3;
+        int randomValue = UnityEngine.Random.Range(1, maxValue + 1);
+
+        coin.SetValue(randomValue);  
     }
 
     private void OnDestroy()

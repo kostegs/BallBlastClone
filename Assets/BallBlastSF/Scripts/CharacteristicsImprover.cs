@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +8,12 @@ public class CharacteristicsImprover : MonoBehaviour
     [Header("Managers")]
     [SerializeField] private CoinsManager _coinsManager;
     [SerializeField] private GamePlaySettings _gamePlaySettings;
+    [SerializeField] private GameMgr _gameManager;
 
     [Header("UI - common elements")]
     [SerializeField] private Sprite _coinSprite;
     [SerializeField] private Sprite _bwCoinSprite;
+    [SerializeField] private TextMeshProUGUI _mainText;
 
     [Header("Main form")]
     [SerializeField] private UIImprovingForm _uiImprovingForm;
@@ -87,10 +85,12 @@ public class CharacteristicsImprover : MonoBehaviour
     private void ChangeUI()
     {
         _coinsAmount = _coinsManager.CountOfCoins;
+        _mainText.text = _gameManager.DefeatState ? "Try again!" : "Level complete";
 
         ChangeUI_Speed();
         ChangeUI_Damage();
         ChangeUI_Amount();
+        
     }
 
     private void ChangeUI_Speed()
