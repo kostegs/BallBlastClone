@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/BallBlastSF/Scenes/MainMenu.unity
+    guid: 10c585bc5229e2549a12a42b7fb40662
+  - enabled: 1
     path: Assets/BallBlastSF/Scenes/MainScene.unity
     guid: bcae20677490fd344b04ffd81103eef4
   m_configObjects: {}
