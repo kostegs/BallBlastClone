@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -5,7 +6,7 @@ using TMPro;
 public class StoneHitPointsText : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _hitPointText;
-
+    
     private Stone _stone;
 
     private void Awake()
